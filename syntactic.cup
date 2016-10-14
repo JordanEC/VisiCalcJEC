@@ -1,0 +1,86 @@
+package com.jordanec.calcjec;
+/**
+* Created by jordan on 10/10/16.
+*/
+
+import java_cup.runtime.*;
+import com.jordanec.calcjec.operations.*;
+
+parser code {:
+    public parser (java.io.Reader input) {
+        super(new LexerAnalyser(input));
+    }
+
+    public void report_error(String message, Object info) {
+        if (message.equals("Syntax error"))
+            System.out.println(new VisiCalcJECException(VisiCalcJECException.syntaxError100).error);
+    }
+
+    public void report_fatal_error(String message, Object info) {
+        if (!message.equals("Couldn't repair and continue parse"))
+            report_error(message, info);
+    }
+:};
+
+terminal            SUM, SUBTRACTION, MULTIPLICATION, DIVISION;
+terminal            POW, SQUARE_ROOT;
+terminal            ASSIGN;
+/*terminal            LESS, GREATER, LESS_EQUAL, GREATER_EQUAL, NOT_EQUAL, CONDITIONAL;*/
+terminal            LEFT_PAREN, RIGHT_PAREN;
+terminal Integer    NUMBER;
+terminal Float      FLOAT;
+terminal Boolean    BOOLEAN;
+terminal String     HELP, VERS, LIMP, TERM, DEFI, LIST, CALC, BORR, GRAB, VALI;
+terminal String     IDENTIFIER;
+
+non terminal Expression expr;
+
+precedence left SUM, SUBTRACTION;
+precedence left MULTIPLICATION, DIVISION;
+precedence left POW, SQUARE_ROOT;
+precedence left ASSIGN;
+precedence left DEFI;
+
+expr          ::= expr:e1 SUM expr:e2
+                    {: RESULT = new Sum(e1, e2); :}
+                | SUM expr:e2
+                    {: RESULT = new Sum(new Literal(0), e2); :}
+                | expr:e1 SUBTRACTION expr:e2
+                    {: RESULT = new Subtraction(e1, e2); :}
+                | SUBTRACTION expr:e2
+                    {: RESULT = new Subtraction(new Literal(0), e2); :}
+                | expr:e1 MULTIPLICATION expr:e2
+                    {: RESULT = new Multiplication(e1, e2); :}
+                | expr:e1 DIVISION expr:e2
+                    {: RESULT = new Division(e1, e2); :}
+                | expr:e1 POW expr:e2
+                    {: RESULT = new Pow(e1, e2); :}
+                | SQUARE_ROOT expr:e1
+                    {: RESULT = new SquareRoot(e1); :}
+                | LEFT_PAREN expr:e RIGHT_PAREN
+                    {: RESULT = e; :}
+                | IDENTIFIER:s ASSIGN expr:e
+                    {: RESULT = new Assignment(s, e); :}
+                | IDENTIFIER:s
+                    {: RESULT = new Identifier(s); :}
+                | NUMBER:n
+                    {: RESULT = new Literal(n); :}
+                | FLOAT:n
+                    {: RESULT = new Literal(n); :}
+                | BOOLEAN:n
+                    {: RESULT = new Literal(n); :}
+                | HELP:c
+                    {: RESULT = new Command(c); :}
+                | VERS:c
+                    {: RESULT = new Command(c); :}
+                | LIMP:c
+                    {: RESULT = new Command(c); :}
+                | TERM:c
+                    {: RESULT = new Command(c); :}
+                | DEFI:c IDENTIFIER:s ASSIGN expr:e
+                   {: RESULT = new Command(c, new Assignment(s, e)); :}
+                | IDENTIFIER:s ASSIGN expr:e DEFI:c
+                   {: RESULT = new Command(c, new Assignment(s, e)); :}
+                | LIST:c
+                   {: RESULT = new Command(c); :}
+                ;

@@ -14,6 +14,7 @@ import com.jordanec.calcjec.operations.*;
 %column
 %ignorecase
 
+
 %{
     private Symbol symbol(int type) {
         return new Symbol(type, yyline, yycolumn);

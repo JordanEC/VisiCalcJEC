@@ -1,4 +1,0 @@
-Manifest-Version: 1.0
-Class-Path: /$PROJECT_DIR/src/
-Main-Class: com.jordanec.calcjec.Main
-

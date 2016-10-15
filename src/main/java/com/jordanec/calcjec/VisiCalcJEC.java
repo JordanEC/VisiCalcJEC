@@ -16,7 +16,7 @@ public class VisiCalcJEC {
             Object val = null;
             if (exp != null)
                 val = exp.eval(env);
-                if (val instanceof Boolean && exp instanceof Command && ((Command)exp).getC().startsWith("ter")) {
+                if (val instanceof Boolean && exp instanceof Command && ((Command)exp).getC().toLowerCase().startsWith("ter")) {
                     if ((Boolean) val)
                         exit = true;
                 }

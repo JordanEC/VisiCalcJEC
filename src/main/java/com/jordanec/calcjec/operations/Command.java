@@ -18,7 +18,7 @@ public class Command extends Expression{
     }
 
     public Command(String c, Expression exp){
-        this.c = c.toLowerCase();
+        this.c = c;
         this.exp = exp;
     }
 
@@ -29,18 +29,18 @@ public class Command extends Expression{
     public Object eval(Environment e) throws VisiCalcJECException{
         Object val = null;
         //Tarea1
-        if (c.startsWith("hel"))
+        if (c.toLowerCase().startsWith("hel"))
             return help();
-        if (c.startsWith("ver"))
+        if (c.toLowerCase().startsWith("ver"))
             return vers();
-        if (c.startsWith("lim"))
+        if (c.toLowerCase().startsWith("lim"))
             return limp();
-        if (c.startsWith("ter"))
+        if (c.toLowerCase().startsWith("ter"))
             return term();
         //Tarea2
-        if (c.startsWith("def"))
+        if (c.toLowerCase().startsWith("def"))
             val = exp.eval(e);
-        if (c.startsWith("lis"))
+        if (c.toLowerCase().startsWith("lis"))
             return list(e);
         return val;
     }

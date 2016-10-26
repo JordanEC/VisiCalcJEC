@@ -11,6 +11,8 @@ public class VisiCalcJECException extends Exception {
     public static int varNotDefinedError103 = 103;
     public static int divisionByZeroError104 = 104;
     public static int mathError105 = 105;
+    public static int lastResultNotFound106 = 106;
+    public static int varTypeError107 = 107;
     //...
     public String error;
     Map<Integer,String> errores = new HashMap<Integer, String>()
@@ -21,6 +23,8 @@ public class VisiCalcJECException extends Exception {
         put(varNotDefinedError103, String.format("ERROR %d: Variable no definida.", varNotDefinedError103));
         put(divisionByZeroError104, String.format("ERROR %d: División por cero.", divisionByZeroError104));
         put(mathError105, String.format("ERROR %d: Error matemático.", mathError105));
+        put(lastResultNotFound106, String.format("ERROR %d: No existe un resultado previo en la memoria.",lastResultNotFound106));
+        put(varTypeError107, String.format("ERROR %d: El resultado en memoria no es del mismo tipo de la variable indicada.",varTypeError107));
         //...
     }};
 

@@ -88,7 +88,11 @@ expr          ::= SQUARE_ROOT expr:e1
                 | expr:e CALC:c
                    {: RESULT = new Command(c, e); :}
                 | BORR:c IDENTIFIER:s
-                   {: RESULT = new Command(c, s); :}
+                   {: RESULT = new Command(c, new Identifier(s)); :}
                 | IDENTIFIER:s BORR:c
-                   {: RESULT = new Command(c, s); :}
+                   {: RESULT = new Command(c, new Identifier(s)); :}
+                | GRAB:c IDENTIFIER:s
+                   {: RESULT = new Command(c, new Identifier(s)); :}
+                | IDENTIFIER:s GRAB:c
+                   {: RESULT = new Command(c, new Identifier(s)); :}
                 ;

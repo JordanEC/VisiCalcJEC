@@ -15,4 +15,9 @@ public class Identifier extends Expression{
     public Object eval(Environment e) throws VisiCalcJECException{
         return e.lookup(id);
     }
+
+    @Override
+    public String toString() {
+        return id;
+    }
 }

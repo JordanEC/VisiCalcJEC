@@ -3,6 +3,7 @@ package com.jordanec.calcjec;
 import com.jordanec.calcjec.operations.Command;
 import com.jordanec.calcjec.operations.Environment;
 import com.jordanec.calcjec.operations.Expression;
+import com.jordanec.calcjec.operations.Literal;
 import java_cup.runtime.Symbol;
 import java.io.StringReader;
 
@@ -20,14 +21,16 @@ public class VisiCalcJEC {
                     if ((Boolean) val)
                         exit = true;
                 }
-                else
+                else {
                     System.out.println(val);
+                    if (val instanceof Integer || val instanceof Float || val instanceof Boolean)
+                        env.setLastValue(new Literal(val));
+                }
         } catch (VisiCalcJECException e){
             System.out.println(e.error);
         } catch (NullPointerException e){
             System.out.print("");
-        }
-        catch (Exception e) {
+        } catch (Exception e) {
             e.printStackTrace();
         }
         return exit;

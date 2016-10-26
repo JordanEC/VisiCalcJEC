@@ -9,6 +9,15 @@ import java.util.*;
  */
 public class Environment {
     private HashMap<String,Object> map;
+    private Object lastValue;
+
+    public Object getLastValue() {
+        return lastValue;
+    }
+
+    public void setLastValue(Object lastValue) {
+        this.lastValue = ((Literal)lastValue).getVal();
+    }
 
     public Environment() {
         map = new HashMap<String, Object>();
@@ -21,13 +30,16 @@ public class Environment {
         return obj;
     }
 
+    public Object check(String var){
+        return map.getOrDefault(var, null);
+    }
 
     public void set(String var, Object val) {
         map.put(var, val);
     }
 
-    public boolean remove(String var){
-        return map.remove(var,map.get(var));
+    public boolean remove(Identifier id){
+        return map.remove(id.toString(),map.get(id.toString()));
     }
 
     public void print() {

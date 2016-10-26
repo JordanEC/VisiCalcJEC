@@ -8,6 +8,10 @@ import com.jordanec.calcjec.VisiCalcJECException;
 public class Literal extends Expression {
     private Object val;
 
+    public Object getVal() {
+        return val;
+    }
+
     public Literal(Object i) {
         val = i;
     }

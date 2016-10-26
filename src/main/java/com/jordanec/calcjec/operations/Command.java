@@ -12,6 +12,7 @@ public class Command extends Expression{
 
     private String c;
     private Expression exp;
+    private Identifier id;
 
     public Command(String c){
         this.c = c;
@@ -20,6 +21,11 @@ public class Command extends Expression{
     public Command(String c, Expression exp){
         this.c = c;
         this.exp = exp;
+    }
+
+    public Command(String c, Identifier id){
+        this.c = c;
+        this.id = id;
     }
 
     public String getC() {
@@ -48,6 +54,8 @@ public class Command extends Expression{
         //Tarea4
         if (c.toLowerCase().startsWith("bor"))
             return borr(e);
+        if (c.toLowerCase().startsWith("gra"))
+            return grab(e);
         return val;
     }
 
@@ -108,9 +116,24 @@ public class Command extends Expression{
         return "\n";
     }
 
-    private String borr(Environment e){
-        //e.remove();
-        return "\n";
+    private String borr(Environment e) throws VisiCalcJECException {
+        if (e.remove(id))
+            return "Variable " +id+" borrada.\n";
+        else
+            throw new VisiCalcJECException(VisiCalcJECException.varNotDefinedError103);
     }
 
+    private String grab(Environment e) throws VisiCalcJECException {
+        if (e.getLastValue() == null)
+            throw new VisiCalcJECException(VisiCalcJECException.lastResultNotFound106);
+
+        Object o = e.check(id.toString());
+
+        if (o != null && o.getClass() != e.getLastValue().getClass())
+            throw new VisiCalcJECException(VisiCalcJECException.varTypeError107);
+
+        Assignment a = new Assignment(id.toString(), new Literal(e.getLastValue()));
+        a.eval(e);
+        return "";
+    }
 }

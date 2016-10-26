@@ -26,6 +26,10 @@ public class Environment {
         map.put(var, val);
     }
 
+    public boolean remove(String var){
+        return map.remove(var,map.get(var));
+    }
+
     public void print() {
         String format = "\n%-20s %-20s %-20s";
         System.out.printf(format, "Variable", "Tipo", "Valor");

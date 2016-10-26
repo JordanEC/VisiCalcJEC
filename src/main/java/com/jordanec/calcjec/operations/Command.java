@@ -47,7 +47,7 @@ public class Command extends Expression{
             val = exp.eval(e);
         //Tarea4
         if (c.toLowerCase().startsWith("bor"))
-            return borr();
+            return borr(e);
         return val;
     }
 
@@ -58,7 +58,10 @@ public class Command extends Expression{
                "\nlimp: limpiar la pantalla." +
                "\nterm: finalizar la aplicación." +
                "\ndefi: definir una variable." +
-               "\nlist: listar variables definidas.\n";
+               "\nlist: listar variables definidas." +
+               "\ncalc: calcula el resultado de una expresión aritmética." +
+               "\nborr: borra una variable previamente definida." +
+               "\ngrab: guarda el último valor calculado en la memoria.\n";
     }
 
     private String vers(){
@@ -67,7 +70,7 @@ public class Command extends Expression{
                "\n*  Escuela de Ciencias Exactas y Naturales  *" +
                "\n*      Cátedra Tecnología de Sistemas       *" +
                "\n*            Compiladores (3307)            *" +
-               "\n*            CalcJEC Versión 0.3            *" +
+               "\n*            CalcJEC Versión 0.4            *" +
                "\n*                  Tarea 4                  *" +
                "\n*          Jordan Espinoza Calderón         *" +
                "\n*          Tercer Cuatrimestre 2016         *" +
@@ -105,8 +108,8 @@ public class Command extends Expression{
         return "\n";
     }
 
-    private String borr(){
-
+    private String borr(Environment e){
+        //e.remove();
         return "\n";
     }
 

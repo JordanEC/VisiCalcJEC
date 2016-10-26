@@ -45,6 +45,9 @@ public class Command extends Expression{
         //Tarea3
         if (c.toLowerCase().startsWith("cal"))
             val = exp.eval(e);
+        //Tarea4
+        if (c.toLowerCase().startsWith("bor"))
+            return borr();
         return val;
     }
 
@@ -64,8 +67,8 @@ public class Command extends Expression{
                "\n*  Escuela de Ciencias Exactas y Naturales  *" +
                "\n*      Cátedra Tecnología de Sistemas       *" +
                "\n*            Compiladores (3307)            *" +
-               "\n*            CalcJEC Versión 0.2            *" +
-               "\n*                  Tarea 2                  *" +
+               "\n*            CalcJEC Versión 0.3            *" +
+               "\n*                  Tarea 4                  *" +
                "\n*          Jordan Espinoza Calderón         *" +
                "\n*          Tercer Cuatrimestre 2016         *" +
                "\n*********************************************\n";
@@ -99,6 +102,11 @@ public class Command extends Expression{
 
     private String list(Environment e){
         e.print();
+        return "\n";
+    }
+
+    private String borr(){
+
         return "\n";
     }
 

@@ -1,8 +1,8 @@
 package com.jordanec.calcjec.operations;
 
 import com.jordanec.calcjec.VisiCalcJECException;
-import java.util.HashMap;
-import java.util.Map;
+
+import java.util.*;
 
 /**
  * Created by jordan on 10/10/16.
@@ -29,11 +29,14 @@ public class Environment {
     public void print() {
         String format = "\n%-20s %-20s %-20s";
         System.out.printf(format, "Variable", "Tipo", "Valor");
-
-        for(Map.Entry<String,Object> entry: map.entrySet())
-            System.out.printf(format, entry.getKey(),
-                    getTypeName(entry.getValue().getClass().getName()),
-                    entry.getValue());
+        List<String> keys = new ArrayList(map.keySet());
+        Collections.sort(keys);
+        for (Object k: keys) {
+            Object entry = map.get(k);
+            System.out.printf(format, k,
+                    getTypeName(entry.getClass().getName()),
+                    entry);
+        }
     }
 
     public String getTypeName(String s){

@@ -42,6 +42,9 @@ public class Command extends Expression{
             val = exp.eval(e);
         if (c.toLowerCase().startsWith("lis"))
             return list(e);
+        //Tarea3
+        if (c.toLowerCase().startsWith("cal"))
+            val = exp.eval(e);
         return val;
     }
 

@@ -19,24 +19,49 @@ public class Division extends Expression{
         Object rightVal = right.eval(e);
         int leftInt, rightInt;
         float leftFloat, rightFloat;
+        float result;
         try {
             if (leftVal instanceof Integer && rightVal instanceof Integer) {
                 leftInt = (Integer) leftVal;
                 rightInt = (Integer) rightVal;
-                return leftInt / rightInt;
+                result = (float)leftInt / rightInt;
+                if (Float.isInfinite(result))
+                    throw new VisiCalcJECException(VisiCalcJECException.divisionByZeroError104);
+                if (result % 1 == 0)
+                    return Math.round(result);
+                else
+                    return result;
             } else {
                 if (leftVal instanceof Integer && rightVal instanceof Float) {
                     leftInt = (Integer) leftVal;
                     rightFloat = (Float) rightVal;
-                    return leftInt / rightFloat;
+                    result = (float)leftInt / rightFloat;
+                    if (Float.isInfinite(result))
+                        throw new VisiCalcJECException(VisiCalcJECException.divisionByZeroError104);
+                    if (result % 1 == 0)
+                        return Math.round(result);
+                    else
+                        return result;
                 } else if (leftVal instanceof Float && rightVal instanceof Integer) {
                     leftFloat = (Float) leftVal;
                     rightInt = (Integer) rightVal;
-                    return leftFloat / rightInt;
+                    result = leftFloat / rightInt;
+                    if (Float.isInfinite(result))
+                        throw new VisiCalcJECException(VisiCalcJECException.divisionByZeroError104);
+                    if (result % 1 == 0)
+                        return Math.round(result);
+                    else
+                        return result;
                 } else if (leftVal instanceof Float && rightVal instanceof Float) {
                     leftFloat = (Float) leftVal;
                     rightFloat = (Float) rightVal;
-                    return leftFloat / rightFloat;
+                    result = leftFloat / rightFloat;
+                    if (Float.isInfinite(result))
+                        throw new VisiCalcJECException(VisiCalcJECException.divisionByZeroError104);
+                    if (result % 1 == 0)
+                        return Math.round(result);
+                    else
+                        return result;
                 }
             }
         }catch (ArithmeticException er){

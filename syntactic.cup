@@ -39,24 +39,24 @@ precedence left SUM, SUBTRACTION;
 precedence left MULTIPLICATION, DIVISION;
 precedence left POW, SQUARE_ROOT;
 precedence left ASSIGN;
-precedence left DEFI;
+precedence left DEFI, CALC;
 
-expr          ::= expr:e1 SUM expr:e2
-                    {: RESULT = new Sum(e1, e2); :}
-                | SUM expr:e2
-                    {: RESULT = new Sum(new Literal(0), e2); :}
+expr          ::= SQUARE_ROOT expr:e1
+                    {: RESULT = new SquareRoot(e1); :}
+                | expr:e1 POW expr:e2
+                    {: RESULT = new Pow(e1, e2); :}
+                | expr:e1 DIVISION expr:e2
+                    {: RESULT = new Division(e1, e2); :}
+                | expr:e1 MULTIPLICATION expr:e2
+                    {: RESULT = new Multiplication(e1, e2); :}
                 | expr:e1 SUBTRACTION expr:e2
                     {: RESULT = new Subtraction(e1, e2); :}
                 | SUBTRACTION expr:e2
                     {: RESULT = new Subtraction(new Literal(0), e2); :}
-                | expr:e1 MULTIPLICATION expr:e2
-                    {: RESULT = new Multiplication(e1, e2); :}
-                | expr:e1 DIVISION expr:e2
-                    {: RESULT = new Division(e1, e2); :}
-                | expr:e1 POW expr:e2
-                    {: RESULT = new Pow(e1, e2); :}
-                | SQUARE_ROOT expr:e1
-                    {: RESULT = new SquareRoot(e1); :}
+                | expr:e1 SUM expr:e2
+                    {: RESULT = new Sum(e1, e2); :}
+                | SUM expr:e2
+                    {: RESULT = new Sum(new Literal(0), e2); :}
                 | LEFT_PAREN expr:e RIGHT_PAREN
                     {: RESULT = e; :}
                 | IDENTIFIER:s ASSIGN expr:e
@@ -83,4 +83,8 @@ expr          ::= expr:e1 SUM expr:e2
                    {: RESULT = new Command(c, new Assignment(s, e)); :}
                 | LIST:c
                    {: RESULT = new Command(c); :}
+                | CALC:c expr:e
+                   {: RESULT = new Command(c, e); :}
+                | expr:e CALC:c
+                   {: RESULT = new Command(c, e); :}
                 ;

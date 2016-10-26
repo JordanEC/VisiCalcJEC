@@ -13,11 +13,6 @@ public class SquareRoot extends Expression{
     }
 
     public Object eval(Environment e) throws VisiCalcJECException {
-        /*if (right.eval(e) instanceof Float)
-            return Math.sqrt((Float) right.eval(e));
-        if (right.eval(e) instanceof Integer)
-            return Math.sqrt((Integer) right.eval(e));
-        return null;*/
         Object rightVal = right.eval(e);
         int rightInt;
         float rightFloat;
@@ -29,9 +24,9 @@ public class SquareRoot extends Expression{
             if (Double.isInfinite(result) || Double.isNaN(result))
                 throw new VisiCalcJECException(VisiCalcJECException.mathError105);
             if (result % 1 == 0)
-                return Math.round(result);
+                return Math.round((float)result);
             else
-                return result;
+                return (float)result;
         }
         else {
             if (rightVal instanceof Float) {
@@ -40,9 +35,9 @@ public class SquareRoot extends Expression{
                 if (Double.isInfinite(result) || Double.isNaN(result))
                     throw new VisiCalcJECException(VisiCalcJECException.mathError105);
                 if (result % 1 == 0)
-                    return Math.round(result);
+                    return Math.round((float)result);
                 else
-                    return result;
+                    return (float)result;
             }
         }
         throw new VisiCalcJECException(VisiCalcJECException.syntaxError100);

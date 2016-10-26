@@ -28,7 +28,7 @@ public class Pow extends Expression{
             if (Double.isInfinite(result))
                 throw new VisiCalcJECException(VisiCalcJECException.mathError105);
             if (result % 1 == 0)
-                return Math.round(result);
+                return Math.round((float)result);
             else
                 return result;
         }
@@ -40,9 +40,9 @@ public class Pow extends Expression{
                 if (Double.isInfinite(result))
                     throw new VisiCalcJECException(VisiCalcJECException.mathError105);
                 if (result % 1 == 0)
-                    return Math.round(result);
+                    return Math.round((float)result);
                 else
-                    return result;
+                    return (float)result;
             } else
             if (leftVal instanceof Float && rightVal instanceof Integer) {
                 leftFloat = (Float) leftVal;
@@ -51,9 +51,9 @@ public class Pow extends Expression{
                 if (Double.isInfinite(result))
                     throw new VisiCalcJECException(VisiCalcJECException.mathError105);
                 if (result % 1 == 0)
-                    return Math.round(result);
+                    return Math.round((float)result);
                 else
-                    return result;
+                    return (float)result;
             }
             else
             if (leftVal instanceof Float && rightVal instanceof Float) {
@@ -63,9 +63,9 @@ public class Pow extends Expression{
                 if (Double.isInfinite(result))
                     throw new VisiCalcJECException(VisiCalcJECException.mathError105);
                 if (result % 1 == 0)
-                    return Math.round(result);
+                    return Math.round((float)result);
                 else
-                    return result;
+                    return (float)result;
             }
         }
         throw new VisiCalcJECException(VisiCalcJECException.syntaxError100);

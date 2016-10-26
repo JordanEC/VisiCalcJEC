@@ -78,12 +78,13 @@ Identifier     = {Letter} ({Letter}|{Digit})*
     "("             { return symbol(sym.LEFT_PAREN); }
     ")"             { return symbol(sym.RIGHT_PAREN); }
     "="             { return symbol(sym.ASSIGN); }
-/*    "<"             { return symbol(sym.LESS); }
+    "<"             { return symbol(sym.LESS); }
     ">"             { return symbol(sym.GREATER); }
     "<="            { return symbol(sym.LESS_EQUAL); }
+    "=="            { return symbol(sym.EQUAL);}
     ">="            { return symbol(sym.GREATER_EQUAL); }
     "<>"            { return symbol(sym.NOT_EQUAL); }
-    "?"             { return symbol(sym.CONDITIONAL;) }*/
+    "?"             { return symbol(sym.CONDITIONAL); }
 
 
 

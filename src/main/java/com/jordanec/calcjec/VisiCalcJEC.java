@@ -30,7 +30,7 @@ public class VisiCalcJEC {
             System.out.println(e.error);
         } catch (NullPointerException e){
             System.out.print("");
-        } catch (Exception e) {
+        }catch (Exception e) {
             e.printStackTrace();
         }
         return exit;

@@ -25,7 +25,7 @@ parser code {:
 terminal            SUM, SUBTRACTION, MULTIPLICATION, DIVISION;
 terminal            POW, SQUARE_ROOT;
 terminal            ASSIGN;
-/*terminal            LESS, GREATER, LESS_EQUAL, GREATER_EQUAL, NOT_EQUAL, CONDITIONAL;*/
+terminal            CONDITIONAL, LESS, GREATER, LESS_EQUAL, GREATER_EQUAL, NOT_EQUAL, EQUAL;
 terminal            LEFT_PAREN, RIGHT_PAREN;
 terminal Integer    NUMBER;
 terminal Float      FLOAT;
@@ -39,10 +39,10 @@ precedence left SUM, SUBTRACTION;
 precedence left MULTIPLICATION, DIVISION;
 precedence left POW, SQUARE_ROOT;
 precedence left ASSIGN;
-precedence left DEFI, CALC;
+precedence left DEFI, CALC, LESS, VALI, CONDITIONAL;
 
 expr          ::= SQUARE_ROOT expr:e1
-                    {: RESULT = new SquareRoot(e1); :}
+                  {: RESULT = new SquareRoot(e1); :}
                 | expr:e1 POW expr:e2
                     {: RESULT = new Pow(e1, e2); :}
                 | expr:e1 DIVISION expr:e2
@@ -95,4 +95,40 @@ expr          ::= SQUARE_ROOT expr:e1
                    {: RESULT = new Command(c, new Identifier(s)); :}
                 | IDENTIFIER:s GRAB:c
                    {: RESULT = new Command(c, new Identifier(s)); :}
+                | VALI:c expr:e1 LESS expr:e2 CONDITIONAL
+                   {: RESULT = new Command(c, new Relational(e1, e2, "<")); :}
+                /*| expr:e1 LESS expr:e2 CONDITIONAL                                    Not
+                   {: RESULT = new Command("vali", new Relational(e1, e2, "<")); :}     working */
+                | expr:e1 LESS expr:e2 CONDITIONAL VALI:c
+                   {: RESULT = new Command(c, new Relational(e1, e2, "<")); :}
+                | VALI:c expr:e1 GREATER expr:e2 CONDITIONAL
+                   {: RESULT = new Command(c, new Relational(e1, e2, ">")); :}
+                 /*| expr:e1 GREATER expr:e2 CONDITIONAL                                Not
+                   {: RESULT = new Command("vali", new Relational(e1, e2, ">")); :}     working */
+                 | expr:e1 GREATER expr:e2 CONDITIONAL VALI:c
+                   {: RESULT = new Command(c, new Relational(e1, e2, ">")); :}
+                | VALI:c expr:e1 LESS_EQUAL expr:e2 CONDITIONAL
+                   {: RESULT = new Command(c, new Relational(e1, e2, "<=")); :}
+                /*| expr:e1 LESS_EQUAL expr:e2 CONDITIONAL                               Not
+                   {: RESULT = new Command("vali", new Relational(e1, e2, "<=")); :}     working */
+                | expr:e1 LESS_EQUAL expr:e2 CONDITIONAL VALI:c
+                   {: RESULT = new Command(c, new Relational(e1, e2, "<=")); :}
+                | VALI:c expr:e1 GREATER_EQUAL expr:e2 CONDITIONAL
+                   {: RESULT = new Command(c, new Relational(e1, e2, ">=")); :}
+                 /*| expr:e1 GREATER_EQUAL expr:e2 CONDITIONAL                           Not
+                   {: RESULT = new Command("vali", new Relational(e1, e2, ">=")); :}     working */
+                 | expr:e1 GREATER_EQUAL expr:e2 CONDITIONAL VALI:c
+                   {: RESULT = new Command(c, new Relational(e1, e2, ">=")); :}
+                | VALI:c expr:e1 NOT_EQUAL expr:e2 CONDITIONAL
+                   {: RESULT = new Command(c, new Relational(e1, e2, "<>")); :}
+                /*| expr:e1 NOT_EQUAL expr:e2 CONDITIONAL                                Not
+                   {: RESULT = new Command("vali", new Relational(e1, e2, "<>")); :}     working */
+                | expr:e1 NOT_EQUAL expr:e2 CONDITIONAL VALI:c
+                   {: RESULT = new Command(c, new Relational(e1, e2, "<>")); :}
+                | VALI:c expr:e1 EQUAL expr:e2 CONDITIONAL
+                   {: RESULT = new Command(c, new Relational(e1, e2, "==")); :}
+                 /*| expr:e1 EQUAL expr:e2 CONDITIONAL                                   Not
+                   {: RESULT = new Command("vali", new Relational(e1, e2, "==")); :}     working */
+                 | expr:e1 EQUAL expr:e2 CONDITIONAL VALI:c
+                   {: RESULT = new Command(c, new Relational(e1, e2, "==")); :}
                 ;

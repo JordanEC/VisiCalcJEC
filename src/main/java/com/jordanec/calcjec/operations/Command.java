@@ -13,6 +13,7 @@ public class Command extends Expression{
     private String c;
     private Expression exp;
     private Identifier id;
+    private Relational relational;
 
     public Command(String c){
         this.c = c;
@@ -27,6 +28,8 @@ public class Command extends Expression{
         this.c = c;
         this.id = id;
     }
+
+
 
     public String getC() {
         return c;
@@ -56,6 +59,9 @@ public class Command extends Expression{
             return borr(e);
         if (c.toLowerCase().startsWith("gra"))
             return grab(e);
+        //Proyecto
+        if (c.toLowerCase().startsWith("val"))
+            val = vali(e);
         return val;
     }
 
@@ -69,7 +75,8 @@ public class Command extends Expression{
                "\nlist: listar variables definidas." +
                "\ncalc: calcula el resultado de una expresión aritmética." +
                "\nborr: borra una variable previamente definida." +
-               "\ngrab: guarda el último valor calculado en la memoria.\n";
+               "\ngrab: guarda el último valor calculado en la memoria." +
+               "\nvali: calcula el resultado de una expresión lógica.\n";
     }
 
     private String vers(){
@@ -78,8 +85,8 @@ public class Command extends Expression{
                "\n*  Escuela de Ciencias Exactas y Naturales  *" +
                "\n*      Cátedra Tecnología de Sistemas       *" +
                "\n*            Compiladores (3307)            *" +
-               "\n*            CalcJEC Versión 0.4            *" +
-               "\n*                  Tarea 4                  *" +
+               "\n*            CalcJEC Versión 1.0            *" +
+               "\n*                  Proyecto                 *" +
                "\n*          Jordan Espinoza Calderón         *" +
                "\n*          Tercer Cuatrimestre 2016         *" +
                "\n*********************************************\n";
@@ -135,5 +142,10 @@ public class Command extends Expression{
         Assignment a = new Assignment(id.toString(), new Literal(e.getLastValue()));
         a.eval(e);
         return "";
+    }
+
+    private Object vali(Environment e) throws VisiCalcJECException {
+        relational = (Relational) exp;
+        return relational.eval(e);
     }
 }

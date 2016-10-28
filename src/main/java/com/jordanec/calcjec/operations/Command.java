@@ -13,7 +13,6 @@ public class Command extends Expression{
     private String c;
     private Expression exp;
     private Identifier id;
-    private Relational relational;
 
     public Command(String c){
         this.c = c;

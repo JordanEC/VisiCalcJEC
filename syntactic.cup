@@ -39,7 +39,7 @@ precedence left SUM, SUBTRACTION;
 precedence left MULTIPLICATION, DIVISION;
 precedence left POW, SQUARE_ROOT;
 precedence left ASSIGN;
-precedence left DEFI, CALC, LESS, VALI, CONDITIONAL;
+precedence left DEFI, CALC, LESS, CONDITIONAL, VALI;
 
 expr          ::= SQUARE_ROOT expr:e1
                   {: RESULT = new SquareRoot(e1); :}
@@ -95,40 +95,40 @@ expr          ::= SQUARE_ROOT expr:e1
                    {: RESULT = new Command(c, new Identifier(s)); :}
                 | IDENTIFIER:s GRAB:c
                    {: RESULT = new Command(c, new Identifier(s)); :}
-                | VALI:c expr:e1 LESS expr:e2 CONDITIONAL                               /*Proyecto*/
-                   {: RESULT = new Command(c, new Relational(e1, e2, "<")); :}
-                /*| expr:e1 LESS expr:e2 CONDITIONAL                                    Not
-                   {: RESULT = new Command("vali", new Relational(e1, e2, "<")); :}     working */
+                /*| expr:e1 LESS expr:e2 CONDITIONAL
+                   {: RESULT = new Relational(e1, e2, "<"); :}*/
+                | VALI:c expr:e1 LESS expr:e2 CONDITIONAL
+                   {: RESULT = new Relational(e1, e2, "<"); :}
                 | expr:e1 LESS expr:e2 CONDITIONAL VALI:c
-                   {: RESULT = new Command(c, new Relational(e1, e2, "<")); :}
+                   {: RESULT = new Relational(e1, e2, "<"); :}
+                /*| expr:e1 GREATER expr:e2 CONDITIONAL
+                   {: RESULT = new Relational(e1, e2, ">"); :}*/
                 | VALI:c expr:e1 GREATER expr:e2 CONDITIONAL
-                   {: RESULT = new Command(c, new Relational(e1, e2, ">")); :}
-                 /*| expr:e1 GREATER expr:e2 CONDITIONAL                                Not
-                   {: RESULT = new Command("vali", new Relational(e1, e2, ">")); :}     working */
-                 | expr:e1 GREATER expr:e2 CONDITIONAL VALI:c
-                   {: RESULT = new Command(c, new Relational(e1, e2, ">")); :}
+                   {: RESULT = new Relational(e1, e2, ">"); :}
+                | expr:e1 GREATER expr:e2 CONDITIONAL VALI:c
+                   {: RESULT = new Relational(e1, e2, ">"); :}
+                /*| expr:e1 LESS_EQUAL expr:e2 CONDITIONAL
+                   {: RESULT = new Relational(e1, e2, "<="); :}*/
                 | VALI:c expr:e1 LESS_EQUAL expr:e2 CONDITIONAL
-                   {: RESULT = new Command(c, new Relational(e1, e2, "<=")); :}
-                /*| expr:e1 LESS_EQUAL expr:e2 CONDITIONAL                               Not
-                   {: RESULT = new Command("vali", new Relational(e1, e2, "<=")); :}     working */
+                   {: RESULT = new Relational(e1, e2, "<="); :}
                 | expr:e1 LESS_EQUAL expr:e2 CONDITIONAL VALI:c
-                   {: RESULT = new Command(c, new Relational(e1, e2, "<=")); :}
+                   {: RESULT = new Relational(e1, e2, "<="); :}
+                /*| expr:e1 GREATER_EQUAL expr:e2 CONDITIONAL
+                   {: RESULT = new Relational(e1, e2, ">="); :}*/
                 | VALI:c expr:e1 GREATER_EQUAL expr:e2 CONDITIONAL
-                   {: RESULT = new Command(c, new Relational(e1, e2, ">=")); :}
-                 /*| expr:e1 GREATER_EQUAL expr:e2 CONDITIONAL                           Not
-                   {: RESULT = new Command("vali", new Relational(e1, e2, ">=")); :}     working */
-                 | expr:e1 GREATER_EQUAL expr:e2 CONDITIONAL VALI:c
-                   {: RESULT = new Command(c, new Relational(e1, e2, ">=")); :}
+                   {: RESULT = new Relational(e1, e2, ">="); :}
+                | expr:e1 GREATER_EQUAL expr:e2 CONDITIONAL VALI:c
+                   {: RESULT = new Relational(e1, e2, ">="); :}
+                /*| expr:e1 NOT_EQUAL expr:e2 CONDITIONAL
+                   {: RESULT = new Relational(e1, e2, "<>"); :}*/
                 | VALI:c expr:e1 NOT_EQUAL expr:e2 CONDITIONAL
-                   {: RESULT = new Command(c, new Relational(e1, e2, "<>")); :}
-                /*| expr:e1 NOT_EQUAL expr:e2 CONDITIONAL                                Not
-                   {: RESULT = new Command("vali", new Relational(e1, e2, "<>")); :}     working */
+                   {: RESULT = new Relational(e1, e2, "<>"); :}
                 | expr:e1 NOT_EQUAL expr:e2 CONDITIONAL VALI:c
-                   {: RESULT = new Command(c, new Relational(e1, e2, "<>")); :}
+                   {: RESULT = new Relational(e1, e2, "<>"); :}
+                /*| expr:e1 EQUAL expr:e2 CONDITIONAL
+                   {: RESULT = new Relational(e1, e2, "=="); :}*/
                 | VALI:c expr:e1 EQUAL expr:e2 CONDITIONAL
-                   {: RESULT = new Command(c, new Relational(e1, e2, "==")); :}
-                 /*| expr:e1 EQUAL expr:e2 CONDITIONAL                                   Not
-                   {: RESULT = new Command("vali", new Relational(e1, e2, "==")); :}     working */
-                 | expr:e1 EQUAL expr:e2 CONDITIONAL VALI:c
-                   {: RESULT = new Command(c, new Relational(e1, e2, "==")); :}
+                   {: RESULT = new Relational(e1, e2, "=="); :}
+                | expr:e1 EQUAL expr:e2 CONDITIONAL VALI:c
+                   {: RESULT = new Relational(e1, e2, "=="); :}
                 ;

@@ -59,9 +59,6 @@ public class Command extends Expression{
             return borr(e);
         if (c.toLowerCase().startsWith("gra"))
             return grab(e);
-        //Proyecto
-        if (c.toLowerCase().startsWith("val"))
-            val = vali(e);
         return val;
     }
 
@@ -142,10 +139,5 @@ public class Command extends Expression{
         Assignment a = new Assignment(id.toString(), new Literal(e.getLastValue()));
         a.eval(e);
         return "";
-    }
-
-    private Object vali(Environment e) throws VisiCalcJECException {
-        relational = (Relational) exp;
-        return relational.eval(e);
     }
 }

@@ -95,7 +95,7 @@ expr          ::= SQUARE_ROOT expr:e1
                    {: RESULT = new Command(c, new Identifier(s)); :}
                 | IDENTIFIER:s GRAB:c
                    {: RESULT = new Command(c, new Identifier(s)); :}
-                | VALI:c expr:e1 LESS expr:e2 CONDITIONAL
+                | VALI:c expr:e1 LESS expr:e2 CONDITIONAL                               /*Proyecto*/
                    {: RESULT = new Command(c, new Relational(e1, e2, "<")); :}
                 /*| expr:e1 LESS expr:e2 CONDITIONAL                                    Not
                    {: RESULT = new Command("vali", new Relational(e1, e2, "<")); :}     working */

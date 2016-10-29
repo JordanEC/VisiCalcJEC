@@ -95,38 +95,38 @@ expr          ::= SQUARE_ROOT expr:e1
                    {: RESULT = new Command(c, new Identifier(s)); :}
                 | IDENTIFIER:s GRAB:c
                    {: RESULT = new Command(c, new Identifier(s)); :}
-                /*| expr:e1 LESS expr:e2 CONDITIONAL
-                   {: RESULT = new Relational(e1, e2, "<"); :}*/
+                | expr:e1 LESS expr:e2 CONDITIONAL
+                   {: RESULT = new Relational(e1, e2, "<"); :}
                 | VALI:c expr:e1 LESS expr:e2 CONDITIONAL
                    {: RESULT = new Relational(e1, e2, "<"); :}
                 | expr:e1 LESS expr:e2 CONDITIONAL VALI:c
                    {: RESULT = new Relational(e1, e2, "<"); :}
-                /*| expr:e1 GREATER expr:e2 CONDITIONAL
-                   {: RESULT = new Relational(e1, e2, ">"); :}*/
+                | expr:e1 GREATER expr:e2 CONDITIONAL
+                   {: RESULT = new Relational(e1, e2, ">"); :}
                 | VALI:c expr:e1 GREATER expr:e2 CONDITIONAL
                    {: RESULT = new Relational(e1, e2, ">"); :}
                 | expr:e1 GREATER expr:e2 CONDITIONAL VALI:c
                    {: RESULT = new Relational(e1, e2, ">"); :}
-                /*| expr:e1 LESS_EQUAL expr:e2 CONDITIONAL
-                   {: RESULT = new Relational(e1, e2, "<="); :}*/
+                | expr:e1 LESS_EQUAL expr:e2 CONDITIONAL
+                   {: RESULT = new Relational(e1, e2, "<="); :}
                 | VALI:c expr:e1 LESS_EQUAL expr:e2 CONDITIONAL
                    {: RESULT = new Relational(e1, e2, "<="); :}
                 | expr:e1 LESS_EQUAL expr:e2 CONDITIONAL VALI:c
                    {: RESULT = new Relational(e1, e2, "<="); :}
-                /*| expr:e1 GREATER_EQUAL expr:e2 CONDITIONAL
-                   {: RESULT = new Relational(e1, e2, ">="); :}*/
+                | expr:e1 GREATER_EQUAL expr:e2 CONDITIONAL
+                   {: RESULT = new Relational(e1, e2, ">="); :}
                 | VALI:c expr:e1 GREATER_EQUAL expr:e2 CONDITIONAL
                    {: RESULT = new Relational(e1, e2, ">="); :}
                 | expr:e1 GREATER_EQUAL expr:e2 CONDITIONAL VALI:c
                    {: RESULT = new Relational(e1, e2, ">="); :}
-                /*| expr:e1 NOT_EQUAL expr:e2 CONDITIONAL
-                   {: RESULT = new Relational(e1, e2, "<>"); :}*/
+                | expr:e1 NOT_EQUAL expr:e2 CONDITIONAL
+                   {: RESULT = new Relational(e1, e2, "<>"); :}
                 | VALI:c expr:e1 NOT_EQUAL expr:e2 CONDITIONAL
                    {: RESULT = new Relational(e1, e2, "<>"); :}
                 | expr:e1 NOT_EQUAL expr:e2 CONDITIONAL VALI:c
                    {: RESULT = new Relational(e1, e2, "<>"); :}
-                /*| expr:e1 EQUAL expr:e2 CONDITIONAL
-                   {: RESULT = new Relational(e1, e2, "=="); :}*/
+                | expr:e1 EQUAL expr:e2 CONDITIONAL
+                   {: RESULT = new Relational(e1, e2, "=="); :}
                 | VALI:c expr:e1 EQUAL expr:e2 CONDITIONAL
                    {: RESULT = new Relational(e1, e2, "=="); :}
                 | expr:e1 EQUAL expr:e2 CONDITIONAL VALI:c

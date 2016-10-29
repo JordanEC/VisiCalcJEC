@@ -24,14 +24,13 @@ parser code {:
 
 terminal            SUM, SUBTRACTION, MULTIPLICATION, DIVISION;
 terminal            POW, SQUARE_ROOT;
-terminal            ASSIGN;
-terminal            CONDITIONAL, LESS, GREATER, LESS_EQUAL, GREATER_EQUAL, NOT_EQUAL, EQUAL;
+terminal            ASSIGN, CONDITIONAL;
 terminal            LEFT_PAREN, RIGHT_PAREN;
 terminal Integer    NUMBER;
 terminal Float      FLOAT;
 terminal Boolean    BOOLEAN;
 terminal String     HELP, VERS, LIMP, TERM, DEFI, LIST, CALC, BORR, GRAB, VALI;
-terminal String     IDENTIFIER;
+terminal String     IDENTIFIER, RELATIONAL;
 
 non terminal Expression expr;
 
@@ -39,7 +38,7 @@ precedence left SUM, SUBTRACTION;
 precedence left MULTIPLICATION, DIVISION;
 precedence left POW, SQUARE_ROOT;
 precedence left ASSIGN;
-precedence left DEFI, CALC, LESS, CONDITIONAL, VALI;
+precedence left DEFI, CALC, CONDITIONAL, VALI;
 
 expr          ::= SQUARE_ROOT expr:e1
                   {: RESULT = new SquareRoot(e1); :}
@@ -95,40 +94,10 @@ expr          ::= SQUARE_ROOT expr:e1
                    {: RESULT = new Command(c, new Identifier(s)); :}
                 | IDENTIFIER:s GRAB:c
                    {: RESULT = new Command(c, new Identifier(s)); :}
-                | expr:e1 LESS expr:e2 CONDITIONAL
-                   {: RESULT = new Relational(e1, e2, "<"); :}
-                | VALI:c expr:e1 LESS expr:e2 CONDITIONAL
-                   {: RESULT = new Relational(e1, e2, "<"); :}
-                | expr:e1 LESS expr:e2 CONDITIONAL VALI:c
-                   {: RESULT = new Relational(e1, e2, "<"); :}
-                | expr:e1 GREATER expr:e2 CONDITIONAL
-                   {: RESULT = new Relational(e1, e2, ">"); :}
-                | VALI:c expr:e1 GREATER expr:e2 CONDITIONAL
-                   {: RESULT = new Relational(e1, e2, ">"); :}
-                | expr:e1 GREATER expr:e2 CONDITIONAL VALI:c
-                   {: RESULT = new Relational(e1, e2, ">"); :}
-                | expr:e1 LESS_EQUAL expr:e2 CONDITIONAL
-                   {: RESULT = new Relational(e1, e2, "<="); :}
-                | VALI:c expr:e1 LESS_EQUAL expr:e2 CONDITIONAL
-                   {: RESULT = new Relational(e1, e2, "<="); :}
-                | expr:e1 LESS_EQUAL expr:e2 CONDITIONAL VALI:c
-                   {: RESULT = new Relational(e1, e2, "<="); :}
-                | expr:e1 GREATER_EQUAL expr:e2 CONDITIONAL
-                   {: RESULT = new Relational(e1, e2, ">="); :}
-                | VALI:c expr:e1 GREATER_EQUAL expr:e2 CONDITIONAL
-                   {: RESULT = new Relational(e1, e2, ">="); :}
-                | expr:e1 GREATER_EQUAL expr:e2 CONDITIONAL VALI:c
-                   {: RESULT = new Relational(e1, e2, ">="); :}
-                | expr:e1 NOT_EQUAL expr:e2 CONDITIONAL
-                   {: RESULT = new Relational(e1, e2, "<>"); :}
-                | VALI:c expr:e1 NOT_EQUAL expr:e2 CONDITIONAL
-                   {: RESULT = new Relational(e1, e2, "<>"); :}
-                | expr:e1 NOT_EQUAL expr:e2 CONDITIONAL VALI:c
-                   {: RESULT = new Relational(e1, e2, "<>"); :}
-                | expr:e1 EQUAL expr:e2 CONDITIONAL
-                   {: RESULT = new Relational(e1, e2, "=="); :}
-                | VALI:c expr:e1 EQUAL expr:e2 CONDITIONAL
-                   {: RESULT = new Relational(e1, e2, "=="); :}
-                | expr:e1 EQUAL expr:e2 CONDITIONAL VALI:c
-                   {: RESULT = new Relational(e1, e2, "=="); :}
+                | expr:e1 RELATIONAL:r expr:e2 CONDITIONAL
+                   {: RESULT = new Relational(e1, e2, r); :}
+                | VALI expr:e1 RELATIONAL:r expr:e2 CONDITIONAL
+                   {: RESULT = new Relational(e1, e2, r); :}
+                | expr:e1 RELATIONAL:r expr:e2 CONDITIONAL VALI
+                   {: RESULT = new Relational(e1, e2, r); :}
                 ;

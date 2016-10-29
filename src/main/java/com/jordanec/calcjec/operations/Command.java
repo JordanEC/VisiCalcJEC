@@ -28,8 +28,6 @@ public class Command extends Expression{
         this.id = id;
     }
 
-
-
     public String getC() {
         return c;
     }
@@ -70,9 +68,24 @@ public class Command extends Expression{
                "\ndefi: definir una variable." +
                "\nlist: listar variables definidas." +
                "\ncalc: calcula el resultado de una expresión aritmética." +
+               "\n -Operaciones soportadas:" +
+               "\n  + (Suma)           Ejemplos: 10+20  5.4+75" +
+               "\n  - (Resta)          Ejemplos: 10-20  75.4-4.1" +
+               "\n  * (Multiplicación) Ejemplos: 4*20  7.4*7.5" +
+               "\n  / (División)       Ejemplos: 10/20  75.5/2" +
+               "\n  ^ (Potencia)      Ejemplos: 5^8  4.5^5" +
+               "\n  # (Raíz cuadrada) Ejemplos: #20  #7" +
+               "\n () (Paréntesis)    Ejemplos: 7*(5+5)  10/(5-1)" +
                "\nborr: borra una variable previamente definida." +
-               "\ngrab: guarda el último valor calculado en la memoria." +
-               "\nvali: calcula el resultado de una expresión lógica.\n";
+               "\ngrab: guarda el último valor calculado en una variable." +
+               "\nvali: calcula el resultado de una expresión lógica." +
+               "\n -Operaciones soportadas:" +
+               "\n  < (Menor que)         Ejemplos: 5<50?  4.5*4<16?" +
+               "\n  > (Mayor que)         Ejemplos: 5>50?  4.5*4>16?" +
+               "\n <= (Menor o igual que) Ejemplos: 5<=50?  4.5<=4.6?" +
+               "\n >= (Mayor o igual que) Ejemplos: 5>=50?  4.5*4>=16?" +
+               "\n <> (Distinto que)      Ejemplos: 5<>5?  5.5<>5.6?" +
+               "\n == (Igual que)         Ejemplos: 5==5?  4.5*4==16?\n";
     }
 
     private String vers(){

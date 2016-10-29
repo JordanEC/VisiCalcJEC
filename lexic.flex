@@ -31,10 +31,11 @@ InputCharacter = [^\r\n]
 WhiteSpace    = {LineTerminator} | [ \t\f]
 Digit          = [0-9]
 Number         = {Digit} {Digit}*
-Float          = [0-9]+\.[0-9]+         /* [0.9]+\.[0-9]* */
+Float          = [0-9]+\.[0-9]+
 Letter         = [a-zA-Z]
 Boolean        = true|false
 Identifier     = {Letter} ({Letter}|{Digit})*
+Relational     = <|>|<=|>=|<>|==
 
 %%
 
@@ -78,17 +79,9 @@ Identifier     = {Letter} ({Letter}|{Digit})*
     "("             { return symbol(sym.LEFT_PAREN); }
     ")"             { return symbol(sym.RIGHT_PAREN); }
     "="             { return symbol(sym.ASSIGN); }
-    "<"             { return symbol(sym.LESS); }
-    ">"             { return symbol(sym.GREATER); }
-    "<="            { return symbol(sym.LESS_EQUAL); }
-    "=="            { return symbol(sym.EQUAL);}
-    ">="            { return symbol(sym.GREATER_EQUAL); }
-    "<>"            { return symbol(sym.NOT_EQUAL); }
+    {Relational}    { return symbol(sym.RELATIONAL, yytext()); }
     "?"             { return symbol(sym.CONDITIONAL); }
-
-
-
-    {WhiteSpace} {}
+    {WhiteSpace}    { }
 }
 
 [^]            { throw new VisiCalcJECException(VisiCalcJECException.lexicError102);}

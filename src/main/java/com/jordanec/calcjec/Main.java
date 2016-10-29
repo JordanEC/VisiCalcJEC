@@ -12,10 +12,10 @@ public class Main {
         BufferedReader buffer = new BufferedReader(reader);
         Environment env = new Environment();
         try {
-            VisiCalcJEC.eval(env, "vers");
+            VisiCalcJEC.eval(env, "vers", false);
             do{
                 System.out.println("Ingrese una instrucción o 'help' para mostrar la ayuda:");
-            }while(!VisiCalcJEC.eval(env, buffer.readLine()));
+            }while(!VisiCalcJEC.eval(env, buffer.readLine(), false));
 
         } catch (IOException e) {
             e.printStackTrace();
@@ -54,29 +54,31 @@ public class Main {
         String ver_defi1 = "abc";
         String ver_defi2 = "hij";
         String ver_defi3 = "xyz";
-        String help = "help";
-        String hel = "hel";
-        String HELP = "HELP";
+        String calc1 = "calc 5+20";
+        String calc2 = "8/5 calc";
+        String calc3 = "75*5";
+        String calc4 = "7^2";
+        String calc5 = "#60.54";
+        String calc6 = "4*8+(7-2.2)/4";
+        String calc7 = "75*2+#5 - 5^5";
+        String calc8 = "75/0";
+
         String expresiones[] = {
-                //pow1, pow2, pow3, pow4,
-                //sqr1, sqr2,
-                //assi1, assi2, assi3,
-                //bool1, bool2, bool3, bool4,
-                //defi1, defi2, defi3,
-                //ver_defi1, ver_defi2, ver_defi3
-                //help, hel, HELP
+                pow1, pow2, pow3, pow4,
+                sqr1, sqr2,
+                assi1, assi2, assi3,
+                bool1, bool2, bool3, bool4,
+                defi1, defi2, defi3,
+                ver_defi1, ver_defi2, ver_defi3,
+                calc1, calc2, calc3, calc4, calc5, calc6, calc7, calc8
         };
         Environment env = new Environment();
-        try {
-            for (String expresion:expresiones) {
-                parser p = new parser(new LexerAnalyser(new StringReader(expresion)));
-                Symbol s = p.parse();
-                Expression exp = (Expression) s.value;
-                System.out.println("\nResult = " + exp.eval(env));
-            }
-        } catch (Exception e) {
-            e.printStackTrace();
+        VisiCalcJEC.eval(env, "vers", false);
+        for (String exp : expresiones) {
+            System.out.println("----------------------\n"+exp);
+            VisiCalcJEC.eval(env, exp, false);
         }
+        VisiCalcJEC.eval(env, "limp", true);
         System.exit(0);
     }
 }

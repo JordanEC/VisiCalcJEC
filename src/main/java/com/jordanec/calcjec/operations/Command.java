@@ -94,7 +94,7 @@ public class Command extends Expression{
                "\n*  Escuela de Ciencias Exactas y Naturales  *" +
                "\n*      Cátedra Tecnología de Sistemas       *" +
                "\n*            Compiladores (3307)            *" +
-               "\n*            CalcJEC Versión 1.0            *" +
+               "\n*            CalcJEC Versión 1              *" +
                "\n*                  Proyecto                 *" +
                "\n*          Jordan Espinoza Calderón         *" +
                "\n*          Tercer Cuatrimestre 2016         *" +
